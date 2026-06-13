@@ -131,7 +131,7 @@ export default function LanguageSelector({ from, to, fromMenuOpen, toMenuOpen, o
   const canSwap = from !== 'auto';
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '14px 18px', borderBottom: '1px solid var(--border)', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 0', flexWrap: 'wrap' }}>
       {/* From */}
       <div style={{ position: 'relative' }} data-menu>
         <LangBtn value={from} open={fromMenuOpen} onToggle={onToggleFrom} t={t} />

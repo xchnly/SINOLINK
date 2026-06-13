@@ -29,6 +29,17 @@ export interface Translations {
   lightMode: string;
   secure: string;
   pinyin: string;
+  textTab: string;
+  docTab: string;
+  dropFile: string;
+  supportedFormats: string;
+  extracting: string;
+  translatingDoc: string;
+  translateDoc: string;
+  downloadTxt: string;
+  fileTooLarge: string;
+  unsupportedFormat: string;
+  docDone: string;
 }
 
 export const translations: Record<UILang, Translations> = {
@@ -61,6 +72,17 @@ export const translations: Record<UILang, Translations> = {
     lightMode: 'Aktifkan mode terang',
     secure: 'Koneksi aman',
     pinyin: 'Pinyin',
+    textTab: 'Teks',
+    docTab: 'Dokumen',
+    dropFile: 'Seret file ke sini atau klik untuk pilih',
+    supportedFormats: 'PDF · DOCX · TXT  —  maks. 5 MB',
+    extracting: 'Membaca dokumen…',
+    translatingDoc: 'Menerjemahkan…',
+    translateDoc: 'Terjemahkan Dokumen',
+    downloadTxt: 'Unduh .txt',
+    fileTooLarge: 'File terlalu besar (maks. 5 MB)',
+    unsupportedFormat: 'Format tidak didukung. Gunakan PDF, DOCX, atau TXT.',
+    docDone: 'Selesai',
   },
   en: {
     tagline: 'Chinese · Indonesian · English',
@@ -91,6 +113,17 @@ export const translations: Record<UILang, Translations> = {
     lightMode: 'Enable light mode',
     secure: 'Secure connection',
     pinyin: 'Pinyin',
+    textTab: 'Text',
+    docTab: 'Document',
+    dropFile: 'Drop file here or click to select',
+    supportedFormats: 'PDF · DOCX · TXT  —  max. 5 MB',
+    extracting: 'Reading document…',
+    translatingDoc: 'Translating…',
+    translateDoc: 'Translate Document',
+    downloadTxt: 'Download .txt',
+    fileTooLarge: 'File too large (max. 5 MB)',
+    unsupportedFormat: 'Unsupported format. Use PDF, DOCX, or TXT.',
+    docDone: 'Done',
   },
   zh: {
     tagline: '中文 · 印尼语 · 英语',
@@ -121,6 +154,17 @@ export const translations: Record<UILang, Translations> = {
     lightMode: '启用浅色模式',
     secure: '安全连接',
     pinyin: '拼音',
+    textTab: '文字',
+    docTab: '文件',
+    dropFile: '拖放文件到此处或点击选择',
+    supportedFormats: 'PDF · DOCX · TXT  —  最大 5 MB',
+    extracting: '读取文件中…',
+    translatingDoc: '翻译中…',
+    translateDoc: '翻译文件',
+    downloadTxt: '下载 .txt',
+    fileTooLarge: '文件过大（最大 5 MB）',
+    unsupportedFormat: '不支持的格式，请使用 PDF、DOCX 或 TXT。',
+    docDone: '完成',
   },
 };
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import DocumentTranslate from '@/components/DocumentTranslate';
 import HistoryPanel from '@/components/HistoryPanel';
 import LanguageSelector from '@/components/LanguageSelector';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -34,6 +35,9 @@ export default function Home() {
     typeof window !== 'undefined' ? (loadLS('sinolink_uilang', 'id') as UILang) : 'id'
   );
   const t = translations[uiLang];
+
+  // ── Tab ──────────────────────────────────────────────────────
+  const [activeTab, setActiveTab] = useState<'text' | 'doc'>('text');
 
   // ── Language pair ────────────────────────────────────────────
   const [from, setFrom] = useState<SourceLanguage>('auto');
@@ -300,27 +304,62 @@ export default function Home() {
 
         {/* ── Main card ──────────────────────────────────── */}
         <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 22, boxShadow: 'var(--shadow)', overflow: 'hidden' }}>
-          <LanguageSelector
-            from={from} to={to}
-            fromMenuOpen={fromMenuOpen} toMenuOpen={toMenuOpen}
-            onToggleFrom={() => { setFromMenuOpen(o => !o); setToMenuOpen(false); }}
-            onToggleTo={() => { setToMenuOpen(o => !o); setFromMenuOpen(false); }}
-            onSelectFrom={handleSelectFrom} onSelectTo={handleSelectTo}
-            onSwap={handleSwap} t={t}
-          />
-          <TranslateBox
-            from={from} to={to}
-            input={input} output={output}
-            isLoading={isLoading} isStreaming={isStreaming}
-            error={error} copied={copied}
-            uiLang={uiLang}
-            onInputChange={handleInputChange}
-            onTranslate={handleTranslate}
-            onClear={handleClear}
-            onCopy={handleCopy}
-            onListen={handleListen}
-            t={t}
-          />
+          {/* Tab bar + language selector row */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', padding: '0 18px', flexWrap: 'wrap', gap: 8 }}>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {(['text', 'doc'] as const).map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  style={{
+                    padding: '13px 16px', fontSize: 13.5, fontWeight: 600, border: 'none',
+                    background: 'transparent', cursor: 'pointer', transition: 'color .15s',
+                    color: activeTab === tab ? 'var(--primary)' : 'var(--text-2)',
+                    borderBottom: activeTab === tab ? '2px solid var(--primary)' : '2px solid transparent',
+                    marginBottom: -1,
+                  }}
+                >
+                  {tab === 'text' ? (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                      {t.textTab}
+                    </span>
+                  ) : (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      {t.docTab}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+            <LanguageSelector
+              from={from} to={to}
+              fromMenuOpen={fromMenuOpen} toMenuOpen={toMenuOpen}
+              onToggleFrom={() => { setFromMenuOpen(o => !o); setToMenuOpen(false); }}
+              onToggleTo={() => { setToMenuOpen(o => !o); setFromMenuOpen(false); }}
+              onSelectFrom={handleSelectFrom} onSelectTo={handleSelectTo}
+              onSwap={handleSwap} t={t}
+            />
+          </div>
+
+          {activeTab === 'text' ? (
+            <TranslateBox
+              from={from} to={to}
+              input={input} output={output}
+              isLoading={isLoading} isStreaming={isStreaming}
+              error={error} copied={copied}
+              uiLang={uiLang}
+              onInputChange={handleInputChange}
+              onTranslate={handleTranslate}
+              onClear={handleClear}
+              onCopy={handleCopy}
+              onListen={handleListen}
+              t={t}
+            />
+          ) : (
+            <DocumentTranslate from={from} to={to} t={t} />
+          )}
         </div>
 
         {/* ── History ────────────────────────────────────── */}
